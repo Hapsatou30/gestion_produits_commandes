@@ -11,4 +11,8 @@ class Categorie extends Model
     protected $fillable =[
         'libelle',
     ];
+    public function produits()
+    {
+        return $this->hasMAny(Categorie::class);
+    }
 }
