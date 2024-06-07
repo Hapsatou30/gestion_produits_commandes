@@ -19,3 +19,6 @@ Route::post('/modificationCategorie',[CategorieController::class, 'sauvegardeMod
 
 //routes produits
 Route::get('/produits', [ProduitController::class,'listeProduits']);
+Route::get('/ajoutProduit', [ProduitController::class,'ajoutProduit']);
+Route::post('/sauvegardeProduit', [ProduitController::class, 'sauvegardeProduit']);
+Route::get('/supprimeProduit/{id}', [ProduitController::class, 'supprimeProduit']);
