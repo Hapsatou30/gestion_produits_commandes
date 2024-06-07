@@ -12,4 +12,13 @@ class CategorieController extends Controller
         $categories = Categorie::all();
         return view('categories/liste', compact('categories'));
     }
+    public function ajoutCategorie()
+    {
+        return view('categories/liste');
+    }
+    public function sauvegardeCategorie(Request $request)
+    {
+        Categorie::create($request->all());
+        return back();
+    }
 }

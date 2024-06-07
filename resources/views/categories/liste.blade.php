@@ -36,6 +36,14 @@
               @endforeach
             </tbody>
           </table>
+          <form action="/sauvegardeCategorie" method="post">
+            @csrf
+            <div class="mb-3">
+                <label for="libelle" class="form-label">Libelle</label>
+                <input type="text" class="form-control" id="libelle" name="libelle" placeholder="Nom de la categorie">
+              </div>
+              <button type="submit">Ajouter</button>
+          </form>
        
     </div>
 </body>
