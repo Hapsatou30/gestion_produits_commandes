@@ -14,6 +14,11 @@ class ProduitController extends Controller
         return view('produits/liste', compact('produits'));
 
     }
+    public function detailsProduit($id)
+    {
+        $produit = Produit::find($id);
+        return view('produits/detail', compact('produit'));
+    }
 
     public function ajoutProduit()
     {

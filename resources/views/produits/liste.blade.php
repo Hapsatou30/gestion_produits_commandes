@@ -18,6 +18,7 @@
       <h5 class="card-title">{{$produit->designation}}</h5>
       <p class="card-text">{{$produit->prix_unitaire}}</p>
       <a href="/modificationProduit/{{$produit->id}}" class="btn btn-primary btn-sm"> <i class="fas fa-edit"></i> </a>
+      <a href="/detailsProduit/{{$produit->id}}" class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i> </a>
                     <a href="/supprimeProduit/{{$produit->id}}" class="btn btn-danger btn-sm"
                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?')">
                         <i class="fas fa-trash-alt"></i> 
