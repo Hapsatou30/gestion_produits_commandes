@@ -27,7 +27,7 @@
                 <td> {{$categorie->libelle}}</td>
                 <td>
                     <a href="#" class="btn btn-primary btn-sm"> <i class="fas fa-edit"></i> </a>
-                    <a href="#" class="btn btn-danger btn-sm"
+                    <a href="/supprimer/{{$categorie->id}}" class="btn btn-danger btn-sm"
                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?')">
                         <i class="fas fa-trash-alt"></i> 
                     </a>

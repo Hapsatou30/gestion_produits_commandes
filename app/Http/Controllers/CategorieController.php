@@ -21,4 +21,10 @@ class CategorieController extends Controller
         Categorie::create($request->all());
         return back();
     }
+    public function supprimerCategorie($id)
+    {
+        $categorie = Categorie::find($id);
+        $categorie->delete();
+        return back();
+    }
 }
