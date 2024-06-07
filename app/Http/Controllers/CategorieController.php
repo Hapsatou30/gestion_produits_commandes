@@ -21,6 +21,18 @@ class CategorieController extends Controller
         Categorie::create($request->all());
         return back();
     }
+    public function modificationCategorie($id)
+    {
+        $categorie = Categorie::find($id);
+        return view('categories/modification',compact('categorie'));
+    }
+    public function sauvegardeModification(Request $request)
+    {
+        $categorie = Categorie::find($request->id);
+        $categorie->update($request->all());
+        return redirect('categories');
+    }
+     
     public function supprimerCategorie($id)
     {
         $categorie = Categorie::find($id);

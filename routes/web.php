@@ -11,3 +11,5 @@ Route::get('/categories', [CategorieController::class, 'listeCategories']);
 Route::get('/ajoutCategorie', [CategorieController::class, 'ajoutCategorie']);
 Route::post('/sauvegardeCategorie', [CategorieController::class, 'sauvegardeCategorie']);
 Route::get('/supprimer/{id}', [CategorieController::class, 'supprimerCategorie']);
+Route::get('/modificationCategorie/{id}', [CategorieController::class, 'modificationCategorie']);
+Route::post('/modificationCategorie',[CategorieController::class, 'sauvegardeModification']);
