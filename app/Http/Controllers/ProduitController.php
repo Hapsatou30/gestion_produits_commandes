@@ -25,6 +25,18 @@ class ProduitController extends Controller
         Produit::create($request->all());
         return redirect('produits');
     }
+    public function modificationProduit($id)
+    {
+        $produit = Produit::find($id);
+        $categories = Categorie::all();
+        return view('produits/modification', compact('produit','categories'));
+    }
+    public function sauvegardeModification(Request $request)
+    {
+        $produit = Produit::find($request->id);
+        $produit->update($request->all());
+        return redirect('produits');
+    }
     public function supprimeProduit($id)
     {
         $produit=  Produit::find($id);

@@ -22,3 +22,5 @@ Route::get('/produits', [ProduitController::class,'listeProduits']);
 Route::get('/ajoutProduit', [ProduitController::class,'ajoutProduit']);
 Route::post('/sauvegardeProduit', [ProduitController::class, 'sauvegardeProduit']);
 Route::get('/supprimeProduit/{id}', [ProduitController::class, 'supprimeProduit']);
+Route::get('/modificationProduit/{id}', [ProduitController::class, 'modificationProduit']);
+Route::post('/modificationProduit', [ProduitController::class, 'sauvegardeModification']);
