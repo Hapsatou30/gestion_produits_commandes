@@ -116,11 +116,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="card mb-3" style="height: 200px" >
+            <div class="card mb-3" style="height: 250px" >
               <div class="row g-0">
                 <div class="col-md-6">
                   @if ($produit->image)
-                    <img src="{{ $produit->image }}" alt="{{ $produit->designation }}" class="img-fluid" style="width: 100%;height:200px;">
+                    <img src="{{ $produit->image }}" alt="{{ $produit->designation }}" class="img-fluid" style="width: 100%;height:250px;">
                   @endif
                 </div>
                 <div class="col-md-6">
