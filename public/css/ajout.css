@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root{
+    --police-titre:Lora;
+    --police-texte: Roboto;
+
+    --couleur--principal: #007F01;
+    --couleur--secondaire:#ffb624;
+
+    --taille--titre:30px;
+    --taille--texte:18px;
+}
+body {
+    font-family: 'Roboto';
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora';
+  }
+  body {
+    background:linear-gradient(rgba(5, 31, 5, 0.6), rgba(24, 73, 24, 0.6)), url('https://img.freepik.com/photos-premium/nourriture-pour-tous-jours_181303-5931.jpg?w=740') no-repeat center center fixed;
+    background-size: cover;
+}
+h1{
+    color: white;
+    text-align: center;
+}
+form
+{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-size: var(--taille--texte);
+}
+.form-control{
+    padding: 10px;
+    border-radius: 10px;
+}
+.btn-custom {
+    background-color: var(--couleur--secondaire);
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: var(--taille--texte);
+    transition: all 0.3s ease;
+   
+  }
+  
+  .btn-custom:hover {
+    background-color: var(--couleur--principal);
+    color: #fff;
+  }

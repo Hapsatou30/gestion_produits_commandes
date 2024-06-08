@@ -3,10 +3,12 @@
 <head>
     <title>Modifier un Produit</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('css/ajout.css')}}">
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Modifier un Produit</h2>
+        <button type="button" class="btn btn-custom" onclick="window.history.back();">Retour à l'accueil</button>
+        <h1>Modifier un Produit</h1>
         <form action="/modificationProduit" method="post">
             @csrf
             <input type="hidden" name="id" value="{{ $produit->id }}">
@@ -42,7 +44,7 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Modifier</button>
+            <button type="submit" class="btn btn-custom">Modifier</button>
         </form>
     </div>
 </body>

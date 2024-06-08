@@ -3,10 +3,11 @@
 <head>
     <title>Ajouter un Produit</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('css/ajout.css')}}">
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Ajouter un Nouveau Produit</h2>
+        <h1>Ajouter un Nouveau Produit</h1>
         <form action="/sauvegardeProduit" method="post" >
             @csrf
             <div class="form-group">
@@ -41,7 +42,7 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Ajouter</button>
+            <button type="submit" class="btn btn-custom">Ajouter</button>
         </form>
     </div>
 </body>
