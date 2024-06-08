@@ -11,7 +11,7 @@ class ProduitController extends Controller
     public function listeProduits()
     {
         $produits = Produit::with('categorie')->get();
-        return view('produits/liste', compact('produits'));
+        return view('personnels/espacePerso', compact('produits'));
     }
 
     public function produitsAccueil()

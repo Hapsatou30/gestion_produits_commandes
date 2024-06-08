@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\ProduitController;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +20,13 @@ Route::get('/modificationCategorie/{id}', [CategorieController::class, 'modifica
 Route::post('/modificationCategorie',[CategorieController::class, 'sauvegardeModification']);
 
 //routes produits
-Route::get('/produits', [ProduitController::class,'listeProduits']);
+Route::get('/espacePerso', [ProduitController::class,'listeProduits']);
 Route::get('/ajoutProduit', [ProduitController::class,'ajoutProduit']);
 Route::post('/sauvegardeProduit', [ProduitController::class, 'sauvegardeProduit']);
 Route::get('/supprimeProduit/{id}', [ProduitController::class, 'supprimeProduit']);
 Route::get('/modificationProduit/{id}', [ProduitController::class, 'modificationProduit']);
 Route::post('/modificationProduit', [ProduitController::class, 'sauvegardeModification']);
 Route::get('/detailsProduit/{id}', [ProduitController::class, 'detailsProduit']);
+
+// // Route::get('espacePerso', [PersonnelController::class, 'especePerso']);
+// Route::get('/espacePerso', function () { return view('personnels/espacePerso');});

@@ -1,3 +1,5 @@
+
+ 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -60,37 +62,47 @@
         </nav>
     </div>
     <div  class="main-content">
-      <div class="container">
-        <form action="/sauvegardeCategorie" method="post">
-          @csrf
-          <div class="mb-3">
-              <label for="libelle" class="form-label">Libelle</label>
-              <input type="text" class="form-control" id="libelle" name="libelle" placeholder="Nom de la categorie">
-            </div>
-            <button type="submit" class="btn-custom">Ajouter</button>
-        </form>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Libelle</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-                @foreach ($categories as $categorie)
-              <tr>
-                <td> {{$categorie->libelle}}</td>
-                <td>
-                    <a href="/modificationCategorie/{{$categorie->id}}" class="btn btn-lg"  style="color: #007F01"> <i class="fas fa-edit"></i> </a>
-                    <a href="/supprimer/{{$categorie->id}}" class="btn btn-lg"  style="color: red"
-                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?')">
-                        <i class="fas fa-trash-alt"></i> 
-                    </a>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+        <div class="container">
+            <a href="/ajoutProduit" class="btn btn-custom">Ajouter</a>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Image</th>
+                  <th scope="col">Désignation</th>
+                  <th scope="col">Prix unitaire</th>
+                  <th scope="col">Etat</th>
+                  <th scope="col">Catégorie</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($produits as $produit)
+                <tr>
+                  <td><img src="{{ $produit->image }}" alt="{{ $produit->designation }}" style="max-width: 100px;"></td>
+                  <td>{{ $produit->designation }}</td>
+                  <td>{{ $produit->prix_unitaire }}</td>
+                  <td>
+                    @if($produit->etat == 'disponible')
+                      <span class="badge " style="background: #007F01">Disponible</span>
+                    @elseif($produit->etat == 'en_rupture')
+                      <span class="badge bg-danger">En rupture</span>
+                    @else
+                      <span class="badge bg-warning">En stock</span>
+                    @endif
+                  </td>
+                  <td>{{ $produit->categorie->libelle }}</td>
+                  <td>
+                    <a href="/modificationProduit/{{ $produit->id }}" class="btn btn-lg" style="color: #007F01"><i class="fas fa-edit"></i></a>
+                    <a href="/detailsProduit/{{ $produit->id }}" class="btn  btn-lg" style="color: #007F01"><i class="fas fa-eye"></i></a>
+                    <a href="/supprimeProduit/{{ $produit->id }}" class="btn  btn-lg" style="color: red" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?')"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            
+           </div>
     </div>
 </body>
 </html>
