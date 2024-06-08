@@ -20,13 +20,13 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link " aria-current="page" href="#">Accueil</a>
+              <a class="nav-link "  href="/">Accueil</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">A propos</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#"> Boutique</a>
+              <a class="nav-link active"aria-current="page" href="#"> Boutique</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a></li>
@@ -42,9 +42,9 @@
       </div>
     </div>
   </div>
-
- 
- 
+  <div class="container mt-4">
+    <button type="button" class="btn btn-custom" onclick="window.history.back();">Retour à l'accueil</button>
+  </div>
   <div class="container produits row row-cols-1 row-cols-md-3 g-4" style="margin-left: auto; margin-right:auto;">
     @foreach ($produits as $produit)
     <div class="col">
