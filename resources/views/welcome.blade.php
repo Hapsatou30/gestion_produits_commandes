@@ -79,12 +79,13 @@
     <div class="col">
         <div class="card">
             <div class="position-relative">
-                <img src="{{ $produit->image }}" class="card-img-top img-fluid" alt="{{ $produit->designation }}" style="height: 300px;border-top-right-radius: 10px; border-top-left-radius: 10px;">
-                <div class="overlay"></div> <!-- Ajout de l'overlay -->
+                <img src="{{ $produit->image }}" class="card-img-top img-fluid" alt="{{ $produit->designation }}" style="height: 300px;">
+                <div class="overlay"></div>
                 <div class="details-icon-container">
-                    <a href="/detailsProduit/{{ $produit->id }}" class="details-icon" data-bs-toggle="tooltip" title="Détails">
-                        <i class="fas fa-eye"></i>
-                    </a>
+                  <!-- Bouton pour ouvrir le modal -->
+                  <button type="button" class="btn details-icon" data-bs-toggle="modal" data-bs-target="#detailModal{{ $produit->id }}">
+                    <i class="fas fa-eye"></i>
+                  </button>
                 </div>
             </div>
             <div class="card-body">
@@ -93,21 +94,65 @@
                     <p class="card-text">Prix: {{ $produit->prix_unitaire }}€</p>
                     <p class="card-text">
                         @if($produit->etat == 'disponible')
-                            <span style="background: #007F01; color:white; padding:8px; border-radius: 8px;" >{{ $produit->etat }}</span>
+                            <span class="badge bg-success">{{ $produit->etat }}</span>
                         @else
-                            <span style="background: red;color:white; padding:8px; border-radius: 8px; ">{{ $produit->etat }}</span>
+                            <span class="badge bg-danger">{{ $produit->etat }}</span>
                         @endif
                     </p>
                 </div>
-                <button class="btn  btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
+                <button class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
                     <i class="fas fa-cart-plus"></i>
                 </button>
             </div>
         </div>
     </div>
+
+    <!-- Modal pour afficher les détails du produit -->
+    <div class="modal fade" id="detailModal{{ $produit->id }}" tabindex="-1" aria-labelledby="detailModalLabel{{ $produit->id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="detailModalLabel{{ $produit->id }}">Details {{ $produit->designation }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  @if ($produit->image)
+                    <img src="{{ $produit->image }}" alt="{{ $produit->designation }}" class="img-fluid rounded-start">
+                  @endif
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ $produit->designation }}</h5>
+                    <p class="card-text"><strong>Référence:</strong> {{ $produit->reference }}</p>
+                    <p class="card-text"><strong>Prix Unitaire:</strong> {{ $produit->prix_unitaire }} €</p>
+                    <p class="card-text"><strong>État:</strong>
+                      @if ($produit->etat == 'disponible')
+                        Disponible
+                      @elseif ($produit->etat == 'en_rupture')
+                        En rupture
+                      @else
+                        En stock
+                      @endif
+                    </p>
+                    <p class="card-text"><strong>Catégorie:</strong> {{ $produit->categorie->libelle }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-custom">Ajouter dans votre panier</button>
+          </div>
+        </div>
+      </div>
+    </div>
     @endforeach
-  </div>  
   </div>
+
   <footer class="footer mt-auto py-3 ">
     <div class="container">
       <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
