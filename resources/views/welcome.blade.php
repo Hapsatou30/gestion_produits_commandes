@@ -116,18 +116,18 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card mb-3" style="height: 200px" >
               <div class="row g-0">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   @if ($produit->image)
-                    <img src="{{ $produit->image }}" alt="{{ $produit->designation }}" class="img-fluid rounded-start">
+                    <img src="{{ $produit->image }}" alt="{{ $produit->designation }}" class="img-fluid" style="width: 100%;height:200px;">
                   @endif
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                   <div class="card-body">
                     <h5 class="card-title">{{ $produit->designation }}</h5>
                     <p class="card-text"><strong>Référence:</strong> {{ $produit->reference }}</p>
-                    <p class="card-text"><strong>Prix Unitaire:</strong> {{ $produit->prix_unitaire }} €</p>
+                    <p class="card-text"><strong>Prix Unitaire:</strong> {{ $produit->prix_unitaire }} Cfa</p>
                     <p class="card-text"><strong>État:</strong>
                       @if ($produit->etat == 'disponible')
                         Disponible
