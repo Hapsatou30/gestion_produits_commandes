@@ -12,8 +12,12 @@ class ProduitController extends Controller
     {
         $produits = Produit::with('categorie')->get();
         return view('produits/liste', compact('produits'));
-
     }
+
+    public function produitsAccueil()
+{
+    
+}
     public function detailsProduit($id)
     {
         $produit = Produit::find($id);
@@ -48,4 +52,22 @@ class ProduitController extends Controller
         $produit->delete();
         return back();
     }
+//     }
+    public function produitsParCategorie(Categorie $categorie)
+    {
+        // Récupérer les produits associés à cette catégorie en utilisant une requête directe
+        $produits = Produit::where('categorie_id', $categorie->id)->get();
+
+        // Retourner la vue avec les données des produits de la catégorie
+        return view('produits.produitCategorie', compact('produits', 'categorie'));
+    }
+    public function listeAccueil()
+    {
+        $produits = Produit::with('categorie')->take(9)->get();
+        $categories = Categorie::all();
+        return view('welcome', compact('produits', 'categories'));
+    }
+    
+
+
 }
