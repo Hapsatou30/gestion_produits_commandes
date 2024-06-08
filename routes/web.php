@@ -5,11 +5,12 @@ use App\Http\Controllers\ProduitController;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProduitController::class,'listeAccueil']);
+Route::get('/categorie/{categorie}', [ProduitController::class, 'produitsParCategorie'])->name('produits.par.categorie');
+
 
 //routes catégories
+
 Route::get('/categories', [CategorieController::class, 'listeCategories']);
 Route::get('/ajoutCategorie', [CategorieController::class, 'ajoutCategorie']);
 Route::post('/sauvegardeCategorie', [CategorieController::class, 'sauvegardeCategorie']);
