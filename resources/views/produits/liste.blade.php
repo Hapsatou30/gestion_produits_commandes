@@ -11,21 +11,31 @@
 <body>
    <div class="container">
     <a href="/ajoutProduit"><button>AJouter</button></a>
-    @foreach ($produits as $produit)
-   <div class="card" style="width: 18rem;">
-    <img src="{{$produit->image}}" class="card-img-top" alt="{{$produit->designation}}">
-    <div class="card-body">
-      <h5 class="card-title">{{$produit->designation}}</h5>
-      <p class="card-text">{{$produit->prix_unitaire}}</p>
-      <a href="/modificationProduit/{{$produit->id}}" class="btn btn-primary btn-sm"> <i class="fas fa-edit"></i> </a>
-      <a href="/detailsProduit/{{$produit->id}}" class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i> </a>
-                    <a href="/supprimeProduit/{{$produit->id}}" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?')">
-                        <i class="fas fa-trash-alt"></i> 
-                    </a>
-    </div>
-  </div>
-   @endforeach
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Désignation</th>
+          <th scope="col">Prix unitaire</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($produits as $produit)
+        <tr>
+          <td><img src="{{ $produit->image }}" alt="{{ $produit->designation }}" style="max-width: 100px;"></td>
+          <td>{{ $produit->designation }}</td>
+          <td>{{ $produit->prix_unitaire }}</td>
+          <td>
+            <a href="/modificationProduit/{{ $produit->id }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Modifier</a>
+            <a href="/detailsProduit/{{ $produit->id }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Détails</a>
+            <a href="/supprimeProduit/{{ $produit->id }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?')"><i class="fas fa-trash-alt"></i> Supprimer</a>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    
    </div>
 </body>
 </html> 

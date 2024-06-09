@@ -42,6 +42,7 @@
       </div>
     </div>
   </div>
+  
   <div class="container mt-4">
     <button type="button" class="btn btn-custom" onclick="window.history.back();">Retour à l'accueil</button>
   </div>
