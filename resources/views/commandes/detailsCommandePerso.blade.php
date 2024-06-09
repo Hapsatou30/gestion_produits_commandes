@@ -62,48 +62,36 @@
         </nav>
     </div>
     <div  class="main-content">
-        <div class="container">
-            <a href="/ajoutProduit" class="btn btn-custom">Ajouter</a>
-            <table class="table">
-              <thead>
+<div class="container mt-5">
+    <h2>Détails de la Commande: {{ $commande->reference }}</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
                 <tr>
-                  <th scope="col">Image</th>
-                  <th scope="col">Désignation</th>
-                  <th scope="col">Prix unitaire</th>
-                  <th scope="col">Etat</th>
-                  <th scope="col">Catégorie</th>
-                  <th scope="col">Actions</th>
+                    <th>Image</th>
+                    <th>Désignation</th>
+                    <th>Prix Unitaire</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
                 </tr>
-              </thead>
-              <tbody>
-                @foreach ($produits as $produit)
-                <tr>
-                  <td><img src="{{ $produit->image }}" alt="{{ $produit->designation }}" style="max-width: 100px;"></td>
-                  <td>{{ $produit->designation }}</td>
-                  <td>{{ $produit->prix_unitaire }}</td>
-                  <td>
-                    @if($produit->etat == 'disponible')
-                      <span class="badge " style="background: #007F01">Disponible</span>
-                    @elseif($produit->etat == 'en_rupture')
-                      <span class="badge bg-danger">En rupture</span>
-                    @else
-                      <span class="badge bg-warning">En stock</span>
-                    @endif
-                  </td>
-                  <td>{{ $produit->categorie->libelle }}</td>
-                  <td>
-                    <a href="/modificationProduit/{{ $produit->id }}" class="btn btn-lg" style="color: #007F01"><i class="fas fa-edit"></i></a>
-                    <a href="/detailsProduit/{{ $produit->id }}" class="btn  btn-lg" style="color: #007F01"><i class="fas fa-eye"></i></a>
-                    <a href="/supprimeProduit/{{ $produit->id }}" class="btn  btn-lg" style="color: red" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?')"><i class="fas fa-trash-alt"></i></a>
-                  </td>
-                  
-                </tr>
+            </thead>
+            <tbody>
+                @foreach($commande->produits as $produit)
+                    <tr>
+                        <td><img src="{{ $produit->image }}" alt="{{ $produit->designation }}" style="width: 100px; height: 100px;"></td>
+                        <td>{{ $produit->designation }}</td>
+                        <td>{{ $produit->pivot->prix_unitaire }} CFA</td>
+                        <td>{{ $produit->pivot->quantite }}</td>
+                        <td>{{ $produit->pivot->prix_unitaire * $produit->pivot->quantite }} CFA</td>
+                    </tr>
                 @endforeach
-              </tbody>
-            </table>
-            
-           </div>
+            </tbody>
+        </table>
     </div>
+    <div class="mt-3">
+        <a href="/touteLesCommandes" class="btn btn-primary">Retour à toutes les commandes</a>
+    </div>
+</div>
+</div>
 </body>
 </html>
-

@@ -34,6 +34,10 @@ Route::middleware(['CheckSession'])->group(function () {
     Route::get('/supprimeProduit/{id}', [ProduitController::class, 'supprimeProduit']);
     Route::get('/modificationProduit/{id}', [ProduitController::class, 'modificationProduit']);
     Route::post('/modificationProduit', [ProduitController::class, 'sauvegardeModification']);
+
+
+Route::get('/touteLesCommandes', [PersonnelController::class, 'toutesLesCommandes']);
+Route::get('/commandePersonnel/{id}', [PersonnelController::class, 'detailCommande']);
 });
 Route::get('/inscriptionClient', [ClientController::class, 'ajoutClient']);
 Route::post('/sauvegardeClient', [ClientController::class , 'sauvegardeClient']);

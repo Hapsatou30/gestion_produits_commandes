@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Personnel;
 use Illuminate\Http\Request;
+use App\Models\Commande;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -66,6 +67,24 @@ class PersonnelController extends Controller
         $request->session()->forget('personnel');
         // Rediriger vers la page de connexion avec un message
         return redirect('/connexion')->with('status', 'Vous venez de vous déconnecter.');
+    }
+
+    public function toutesLesCommandes()
+    {
+        $commandes = Commande::with('produits')->get();
+
+        return view('commandes.lesCommandes', compact('commandes'));
+    }
+
+    public function detailCommande($id)
+    {
+        $commande = Commande::with('produits')->where('id', $id)->first();
+
+        if (!$commande) {
+            return redirect('lesCommandes')->with('status', 'Commande non trouvée.');
+        }
+
+        return view('commandes/detailsCommandePerso', compact('commande'));
     }
 
 }
