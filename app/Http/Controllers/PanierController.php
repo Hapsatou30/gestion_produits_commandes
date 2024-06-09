@@ -117,6 +117,6 @@ public function update(Request $request, $id)
     $commande->montant_total = $request->input('montant_total');
     $commande->save();
 
-    return redirect()->route('mesCommandes')->with('status', 'Commande mise à jour avec succès.');
+    return redirect()->route('mesCommandes');
 }
 }

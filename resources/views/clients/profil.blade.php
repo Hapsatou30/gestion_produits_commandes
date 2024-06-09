@@ -59,6 +59,7 @@
               </ul>
           </div>
       </div>
+      <h6 style="color: white">Bonjour {{session('personnel')->prenom}} </h6>
   </nav>
   </header>
   <div class="banner" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(rgba(5, 31, 5, 0.6), rgba(24, 73, 24, 0.6)),url('{{ asset('images/boutique.jpg') }}'); background-size: cover; background-position: center; height:80vh">

@@ -98,7 +98,7 @@
         });
     });
   </script>
-<footer class="footer mt-auto py-3 ">
+<footer class="footer m-3 py-3 ">
     <div class="container">
       <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
         <p >© {{ date('Y') }} Kane & frère. Tous droits réservés.</p>

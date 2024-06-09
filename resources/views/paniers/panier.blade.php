@@ -12,55 +12,62 @@
 <body>
   <header>
     <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-          <a class="navbar-brand" href="#"><img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img"></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-              <ul class="navbar-nav mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-                  </li>
-                  
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Boutique</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/mesCommandes">Commande</a>
-                </li>
-                  <li class="nav-item">
-                        <a class="nav-link" href="/deconnexionClient">{{session('status')}}Deconnexion</a>
-                </li><li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge bg-danger">{{ count(session('panier', [])) }}</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
-                        @if(session('panier'))
-                            @foreach(session('panier') as $item)
-                                <li class="dropdown-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <img src="{{ $item['image'] }}" alt="{{ $item['designation'] }}" style="width: 50px; height: 50px;">
-                                        <span style=" color: #007F01">{{ $item['designation'] }}</span>
-                                    </div>
-                                    <span style=" color: #007F01">{{ $item['quantity'] }} x {{ $item['prix_unitaire'] }}CFA</span>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="{{ asset('images/logo1.png') }}" alt="logo" class="logo-img"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profil">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop">Boutique</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mesCommandes">Commande</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/deconnexionClient">Deconnexion</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge bg-danger">{{ count(session('panier', [])) }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            @if(session('panier') && count(session('panier')) > 0)
+                                @foreach(session('panier') as $item)
+                                    <li class="dropdown-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <img src="{{ $item['image'] }}" alt="{{ $item['designation'] }}" style="width: 50px; height: 50px;">
+                                            <span style=" color: #007F01">{{ $item['designation'] }}</span>
+                                        </div>
+                                        <span style=" color: #007F01">{{ $item['quantity'] }} x {{ $item['prix_unitaire'] }}CFA</span>
+                                    </li>
+                                @endforeach
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="dropdown-item text-end">
+                                    <a href="/voirPanier" class="btn btn-custom">Voir Panier</a>
                                 </li>
-                            @endforeach
-                            <li><hr class="dropdown-divider"></li>
-                            <li class="dropdown-item text-end">
-                                <a href="/voirPanier" class="btn btn-custom">Voir Panier</a>
-                            </li>
-                        @else
-                            <li class="dropdown-item text-center">Votre panier est vide</li>
-                        @endif
-                    </ul>
-                </li>
-              </ul>
-          </div>
-      </div>
-  </nav>
+                            @else
+                                <li class="dropdown-item text-center">Votre panier est vide</li>
+                            @endif
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
   </header>
+  <main>
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+</main>
 <div class="container mt-5">
     <h2>Votre Panier</h2>
     @if(session('panier') && count(session('panier')) > 0)
@@ -96,8 +103,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="text-end">
-            <a href="/validerCommande" class="btn btn-primary">Passer à la caisse</a>
+        <div class="m-3 text-end">
+            <a href="/validerCommande" class="btn btn-custom">Passer à la caisse</a>
         </div>
     @else
         <p>Votre panier est vide.</p>
