@@ -31,6 +31,10 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a></li>
           </ul>
+            <a class="nav-link" href="/panier" style="margin-left:20%; color:white; ">
+                <i class="fas fa-shopping-cart "></i> 
+                ({{ session('panier') ? count(session('panier')) : 0 }})
+            </a>
         </div>
       </div>
     </nav>
@@ -91,7 +95,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $produit->designation }}</h5>
                 <div class="infos">
-                    <p class="card-text">Prix: {{ $produit->prix_unitaire }}€</p>
+                    <p class="card-text">Prix: {{ $produit->prix_unitaire }}Cfa</p>
                     <p class="card-text">
                         @if($produit->etat == 'disponible')
                             <span class="badge bg-success">{{ $produit->etat }}</span>
@@ -100,9 +104,13 @@
                         @endif
                     </p>
                 </div>
-                <button class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
-                    <i class="fas fa-cart-plus"></i>
-                </button>
+                <form action="/ajoutPanier/{{ $produit->id}}" method="POST">
+                  @csrf
+                  <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
+                      <i class="fas fa-cart-plus"></i>
+                  </button>
+              </form>
+              
             </div>
         </div>
     </div>

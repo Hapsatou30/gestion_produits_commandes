@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commandes', function (Blueprint $table) {
-            $table->id();
-            $table->string('reference')->unique();
-            $table->enum('etat_commande', ['valide', 'annule', 'en_cours']);
-            $table->decimal('montant_total', 10, 2);
-            $table->timestamps();
+        Schema::table('commandes', function (Blueprint $table) {
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
         });
     }
 
@@ -25,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commandes');
+        Schema::table('commandes', function (Blueprint $table) {
+            $table->dropForeign(['client_id']);
+            $table->dropColumn('client_id');
+        });
     }
 };

@@ -20,4 +20,8 @@ class Commande extends Model
       {
           return $this->belongsTo(Client::class);
       }
+      public function produits()
+      {
+          return $this->belongsToMany(Produit::class, 'commande_produits')->withPivot('quantite');
+      }
 }

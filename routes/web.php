@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\PanierController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\ProduitController;
 use App\Models\Categorie;
@@ -54,3 +55,10 @@ Route::middleware(['CheckSession'])->group(function () {
 Route::get('/listeCommande', [CommandeController::class, 'listeCommande']);
 Route::get('/ajouterCommande', [CommandeController::class,'ajoutCommande']);
 Route::post('/sauvegardeCommande', [CommandeController::class, 'sauveardeCommande']);
+
+Route::get('/panier', [PanierController::class, 'afficherPanier']);
+Route::post('/ajoutPanier/{produits}', [PanierController::class, 'ajoutPanier']);
+Route::get('/supprimerDuPanier/{produit}', [PanierController::class, 'supprimerDuPanier']);
+Route::post('/panier/{produit}', [PanierController::class, 'update']);
+Route::post('/viderPanier', [PanierController::class, 'viderPanier'])->name('viderPanier');
+
