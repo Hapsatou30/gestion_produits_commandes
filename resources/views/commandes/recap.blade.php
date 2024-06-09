@@ -20,7 +20,7 @@
           <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
               <ul class="navbar-nav mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                      <a class="nav-link active" aria-current="page" href="/profil">Accueil</a>
                   </li>
                   
                   <li class="nav-item">
@@ -61,8 +61,9 @@
       </div>
   </nav>
   </header>
+  
 <div class="container mt-5">
-    <h2>Votre Panier</h2>
+    <h2>Récapitulatif de votre commande</h2>
     @if(session('panier') && count(session('panier')) > 0)
         <div class="table-responsive">
             <table class="table">
@@ -73,7 +74,6 @@
                         <th>Prix Unitaire</th>
                         <th>Quantité</th>
                         <th>Total</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,26 +84,21 @@
                             <td>{{ $item['prix_unitaire'] }} CFA</td>
                             <td>{{ $item['quantity'] }}</td>
                             <td>{{ $item['prix_unitaire'] * $item['quantity'] }} CFA</td>
-                            <td>
-                                <form action="/supprimerDuPanier" method="post">
-                                    @csrf
-                                    <input type="hidden" name="produit_id" value="{{ $item['id'] }}">
-                                    <button type="submit" class="btn btn-danger">Retirer</button>
-                                </form>
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
         <div class="text-end">
-            <a href="/validerCommande" class="btn btn-primary">Passer à la caisse</a>
+            <form action="/traiterCommande" method="post">
+                @csrf
+                <button type="submit" class="btn btn-primary">Valider la commande</button>
+            </form>
         </div>
     @else
         <p>Votre panier est vide.</p>
     @endif
 </div>
-
 <footer class="footer mt-auto py-3 ">
     <div class="container">
       <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
@@ -113,4 +108,3 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
-

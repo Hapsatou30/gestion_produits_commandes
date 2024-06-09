@@ -20,7 +20,7 @@
           <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
               <ul class="navbar-nav mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                      <a class="nav-link active" aria-current="page" href="/profil">Accueil</a>
                   </li>
                   
                   <li class="nav-item">
@@ -61,47 +61,37 @@
       </div>
   </nav>
   </header>
-<div class="container mt-5">
-    <h2>Votre Panier</h2>
-    @if(session('panier') && count(session('panier')) > 0)
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
+  
+
+  <div class="container mt-5">
+    <h2>Détails de la Commande: {{ $commande->reference }}</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Désignation</th>
+                    <th>Prix Unitaire</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($commande->produits as $produit)
                     <tr>
-                        <th>Image</th>
-                        <th>Désignation</th>
-                        <th>Prix Unitaire</th>
-                        <th>Quantité</th>
-                        <th>Total</th>
-                        <th>Actions</th>
+                        <td><img src="{{ $produit->image }}" alt="{{ $produit->designation }}" style="width: 100px; height: 100px;"></td>
+                        <td>{{ $produit->designation }}</td>
+                        <td>{{ $produit->pivot->prix_unitaire }} CFA</td>
+                        <td>{{ $produit->pivot->quantite }}</td>
+                        <td>{{ $produit->pivot->prix_unitaire * $produit->pivot->quantite }} CFA</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($panier as $item)
-                        <tr>
-                            <td><img src="{{ $item['image'] }}" alt="{{ $item['designation'] }}" style="width: 100px; height: 100px;"></td>
-                            <td>{{ $item['designation'] }}</td>
-                            <td>{{ $item['prix_unitaire'] }} CFA</td>
-                            <td>{{ $item['quantity'] }}</td>
-                            <td>{{ $item['prix_unitaire'] * $item['quantity'] }} CFA</td>
-                            <td>
-                                <form action="/supprimerDuPanier" method="post">
-                                    @csrf
-                                    <input type="hidden" name="produit_id" value="{{ $item['id'] }}">
-                                    <button type="submit" class="btn btn-danger">Retirer</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="text-end">
-            <a href="/validerCommande" class="btn btn-primary">Passer à la caisse</a>
-        </div>
-    @else
-        <p>Votre panier est vide.</p>
-    @endif
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-3">
+        <a href="{{ route('mesCommandes') }}" class="btn btn-primary">Retour à mes commandes</a>
+    </div>
 </div>
 
 <footer class="footer mt-auto py-3 ">
@@ -113,4 +103,3 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
-

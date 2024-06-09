@@ -72,9 +72,12 @@
                         @endif
                     </p>
                 </div>
-                <button class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
-                    <i class="fas fa-cart-plus"></i>
-                </button>
+                <form action="/connexionClient" method="get">
+                  @csrf
+                  <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
+                      <i class="fas fa-cart-plus"></i>
+                  </button>
+              </form>
             </div>
         </div>
     </div>
