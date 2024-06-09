@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\ProduitController;
 use App\Models\Categorie;
@@ -50,3 +51,6 @@ Route::middleware(['CheckSession'])->group(function () {
     Route::get('/modificationProduit/{id}', [ProduitController::class, 'modificationProduit']);
     Route::post('/modificationProduit', [ProduitController::class, 'sauvegardeModification']);
 });
+Route::get('/listeCommande', [CommandeController::class, 'listeCommande']);
+Route::get('/ajouterCommande', [CommandeController::class,'ajoutCommande']);
+Route::post('/sauvegardeCommande', [CommandeController::class, 'sauveardeCommande']);
