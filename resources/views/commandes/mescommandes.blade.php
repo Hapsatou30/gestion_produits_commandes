@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -62,48 +63,36 @@
   </nav>
   </header>
 <div class="container mt-5">
-    <h2>Votre Panier</h2>
-    @if(session('panier') && count(session('panier')) > 0)
+    <h2>Mes Commandes</h2>
+    @if($commandes->count() > 0)
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Image</th>
-                        <th>Désignation</th>
-                        <th>Prix Unitaire</th>
-                        <th>Quantité</th>
-                        <th>Total</th>
-                        <th>Actions</th>
+                        <th>Référence</th>
+                        <th>État</th>
+                        <th>Montant Total</th>
+                        <th>Date</th>
+                        <th>Détails</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($panier as $item)
+                    @foreach($commandes as $commande)
                         <tr>
-                            <td><img src="{{ $item['image'] }}" alt="{{ $item['designation'] }}" style="width: 100px; height: 100px;"></td>
-                            <td>{{ $item['designation'] }}</td>
-                            <td>{{ $item['prix_unitaire'] }} CFA</td>
-                            <td>{{ $item['quantity'] }}</td>
-                            <td>{{ $item['prix_unitaire'] * $item['quantity'] }} CFA</td>
-                            <td>
-                                <form action="/supprimerDuPanier" method="post">
-                                    @csrf
-                                    <input type="hidden" name="produit_id" value="{{ $item['id'] }}">
-                                    <button type="submit" class="btn btn-danger">Retirer</button>
-                                </form>
-                            </td>
+                            <td>{{ $commande->reference }}</td>
+                            <td>{{ $commande->etat_commande }}</td>
+                            <td>{{ $commande->montant_total }} CFA</td>
+                            <td>{{ $commande->created_at->format('d/m/Y') }}</td>
+                            <td><a href="/commande/{{ $commande->id}}" class="btn btn-info">Voir Détails</a></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="text-end">
-            <a href="/validerCommande" class="btn btn-primary">Passer à la caisse</a>
-        </div>
     @else
-        <p>Votre panier est vide.</p>
+        <p>Vous n'avez pas encore passé de commandes.</p>
     @endif
 </div>
-
 <footer class="footer mt-auto py-3 ">
     <div class="container">
       <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
@@ -113,4 +102,3 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
-

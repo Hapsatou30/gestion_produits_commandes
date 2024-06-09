@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Commande;
 class ClientController extends Controller
 {
     public function ajoutClient(Request $request)
@@ -69,4 +70,31 @@ class ClientController extends Controller
         // Rediriger vers la page de connexion avec un message
         return redirect('/')->with('status', 'Vous venez de vous déconnecter.');
     }
+    public function mesCommandes(Request $request)
+    {
+        $client = $request->session()->get('client');
+        if (!$client) {
+            return redirect('/connexionClient')->with('status', 'Vous devez être connecté pour voir vos commandes.');
+        }
+
+        $commandes = Commande::where('client_id', $client->id)->get();
+
+        return view('commandes.mescommandes', compact('commandes'));
+    }
+    public function detailCommande($id, Request $request)
+{
+    $client = $request->session()->get('client');
+    if (!$client) {
+        return redirect('/connexionClient')->with('status', 'Vous devez être connecté pour voir les détails de vos commandes.');
+    }
+
+    $commande = Commande::with('produits')->where('id', $id)->where('client_id', $client->id)->first();
+
+    if (!$commande) {
+        return redirect('mescommandes')->with('status', 'Commande non trouvée.');
+    }
+
+    return view('commandes.detailCommande', compact('commande'));
+}
+
 }

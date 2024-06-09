@@ -27,7 +27,7 @@
                       <a class="nav-link" href="#">Boutique</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Commande</a>
+                    <a class="nav-link" href="/mesCommandes">Commande</a>
                 </li>
                   <li class="nav-item">
                         <a class="nav-link" href="/deconnexionClient">{{session('status')}}Deconnexion</a>

@@ -60,7 +60,7 @@ public function supprimerDuPanier(Request $request)
 public function validerCommande()
 {
     $panier = session()->get('panier', []);
-    return view('commandes/details', compact('panier'));
+    return view('commandes/recap', compact('panier'));
 }
 
 public function traiterCommande(Request $request)

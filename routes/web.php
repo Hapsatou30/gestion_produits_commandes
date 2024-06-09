@@ -48,6 +48,10 @@ Route::post('/supprimerDuPanier', [PanierController::class, 'supprimerDuPanier']
 Route::get('/validerCommande', [PanierController::class, 'validerCommande']);
 Route::post('/traiterCommande', [PanierController::class, 'traiterCommande']);
 
+Route::get('/mesCommandes', [ClientController::class, 'mesCommandes'])->name('mesCommandes');
+Route::get('/commande/{id}', [ClientController::class, 'detailCommande'])->name('detailCommande');
+
+
 
 
     });
