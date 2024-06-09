@@ -11,10 +11,24 @@
     <h1>Votre Panier</h1>
     @foreach ($produits as $produit)
     <li>
-        <strong>Nom:</strong> {{ $produit->designation}}, 
+        <strong>Nom:</strong> {{ $produit->designation }}, 
         <strong>Prix Unitaire:</strong> {{ $produit->prix_unitaire  }}
-        <a href="/supprimerDuPanier/{{$produit->id}}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?')"><i class="fas fa-trash-alt"></a>
+         <!-- Boutons pour augmenter et diminuer la quantité -->
+         <form action="/panier/{{$produit->id}}" method="post" style="display: inline;">
+            @csrf
+            <input type="number" name="quantite" value="{{ $produit->pivot ? $produit->pivot->quantite : 1 }}" min="1">
+            <button type="submit">Mettre à jour</button>
+        </form>
+        <form action="/supprimerDuPanier/{{$produit->id}}" method="post" style="display: inline;">
+            @csrf
+            <button type="submit">Supprimer</button>
+        </form>
     </li>
 @endforeach
+
+<form action="/viderPanier" method="post">
+    @csrf
+    <button type="submit">Vider le panier</button>
+</form>
 </body>
 </html>
