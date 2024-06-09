@@ -12,6 +12,12 @@ class CategorieController extends Controller
         $categories = Categorie::all();
         return view('categories/liste', compact('categories'));
     }
+    public function  listeCategoriesProfil()
+    {
+        $categories = Categorie::all();
+        return view('clients/profil', compact('categories'));
+    }
+   
     public function ajoutCategorie()
     {
         return view('categories/liste');

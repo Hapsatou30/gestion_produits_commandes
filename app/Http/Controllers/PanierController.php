@@ -5,72 +5,102 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produit;
 use App\Models\Commande;
+use App\Models\CommandeProduit;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
+
 
 class PanierController extends Controller
 {
-  
-
-    public function afficherPanier()
+    public function ajoutPanier(Request $request)
     {
-        // Récupérer les identifiants de produit depuis la session
-        $produitsIds = session('panier', []);
-    
-        // Récupérer les détails de chaque produit à partir de la base de données
-        $produits = Produit::whereIn('id', $produitsIds)
-                           ->with('commandes')
-                           ->get();
-    
-        // Retourner la vue du panier avec les détails des produits
-        return view('paniers.panier', compact('produits'));
+        $produitId = $request->input('produit_id');
+        $produit = Produit::find($produitId);
+
+        if (!$produit) {
+            return back()->with('status', 'Produit non trouvé.');
+        }
+
+        $panier = session()->get('panier', []);
+
+        if (isset($panier[$produitId])) {
+            $panier[$produitId]['quantity']++;
+        } else {
+            $panier[$produitId] = [
+                'id' => $produit->id,
+                'designation' => $produit->designation,
+                'prix_unitaire' => $produit->prix_unitaire,
+                'quantity' => 1,
+                'image' => $produit->image,
+            ];
+        }
+
+        session()->put('panier', $panier);
+
+        return back()->with('status', 'Produit ajouté au panier.');
     }
-    
-public function ajoutPanier(Request $request, $produitId)
+    public function voirPanier()
 {
-    // Ajouter le produit au panier
-    $panier = session('panier', []);
-    $panier[] = $produitId;
-    session(['panier' => $panier]);
-    // Rediriger vers la page du panier
-    return redirect('/')->with('success', 'Produit ajouté au panier.');
+    $panier = session()->get('panier', []);
+    return view('paniers/panier', compact('panier'));
 }
-public function supprimerDuPanier($produitId)
+public function supprimerDuPanier(Request $request)
 {
-    // Supprimer le produit du panier
-    $panier = session()->pull('panier', []);
-    $panier = array_diff($panier, [$produitId]);
-    
-    // Mettre à jour la session avec le nouveau panier
-    session(['panier' => $panier]);
+    $panier = session()->get('panier', []);
+    $produitId = $request->input('produit_id');
 
-    // Rediriger vers la page du panier
-    return redirect('/panier')->with('success', 'Produit supprimé du panier.');
-}
-public function update(Request $request, $produitId)
-{
-    // Récupérer la commande active du client
-    $commande = Commande::where('client_id', auth()->user()->id)
-                         ->where('etat_commande', 'en_cours')
-                         ->first();
-
-    // Vérifier si la commande existe
-    if ($commande) {
-        // Mettre à jour la quantité du produit dans la commande
-        $commande->produits()->updateExistingPivot($produitId, [
-            'quantite' => $request->quantite,
-        ]);
+    if (isset($panier[$produitId])) {
+        unset($panier[$produitId]);
+        session()->put('panier', $panier);
     }
 
-    // Rediriger vers la page du panier
-    return redirect()->route('panier.index')->with('success', 'Quantité mise à jour avec succès.');
+    return back()->with('status', 'Produit retiré du panier.');
 }
-public function viderPanier()
+
+public function validerCommande()
 {
-    // Supprimer toutes les données du panier de la session
+    $panier = session()->get('panier', []);
+    return view('commandes/details', compact('panier'));
+}
+
+public function traiterCommande(Request $request)
+{
+    $panier = session()->get('panier', []);
+    if (count($panier) == 0) {
+        return redirect('voirPanier')->with('status', 'Votre panier est vide.');
+    }
+
+    // Calculer le montant total
+    $montantTotal = array_reduce($panier, function ($carry, $item) {
+        return $carry + ($item['prix_unitaire'] * $item['quantity']);
+    }, 0);
+
+    // Récupérer le client connecté
+    $client = $request->session()->get('client');
+    if (!$client) {
+        return redirect('connexionClient')->with('status', 'Vous devez être connecté pour passer une commande.');
+    }
+
+    // Créer une nouvelle commande
+    $commande = new Commande();
+    $commande->reference = Str::uuid();
+    $commande->etat_commande = 'en_cours';
+    $commande->montant_total = $montantTotal;
+    $commande->client_id = $client->id; // Associer la commande au client
+    $commande->save();
+
+    // Enregistrer chaque produit de la commande
+    foreach ($panier as $item) {
+        $commandeProduit = new CommandeProduit();
+        $commandeProduit->commande_id = $commande->id;
+        $commandeProduit->produit_id = $item['id'];
+        $commandeProduit->quantite = $item['quantity'];
+        $commandeProduit->save();
+    }
+
+    // Vider le panier
     session()->forget('panier');
 
-    // Rediriger vers la page du panier vide ou toute autre page appropriée
-    return redirect('/panier')->with('success', 'Le panier a été vidé.');
+    return redirect('/profil')->with('status', 'Votre commande a été validée avec succès.');
 }
-
-
 }

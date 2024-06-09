@@ -27,7 +27,34 @@
                       <a class="nav-link" href="#">Boutique</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/connexionClient">Connexion</a>
+                    <a class="nav-link" href="#">Commande</a>
+                </li>
+                  <li class="nav-item">
+                        <a class="nav-link" href="/deconnexionClient">{{session('status')}}Deconnexion</a>
+                </li><li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge bg-danger">{{ count(session('panier', [])) }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
+                        @if(session('panier'))
+                            @foreach(session('panier') as $item)
+                                <li class="dropdown-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <img src="{{ $item['image'] }}" alt="{{ $item['designation'] }}" style="width: 50px; height: 50px;">
+                                        <span style=" color: #007F01">{{ $item['designation'] }}</span>
+                                    </div>
+                                    <span style=" color: #007F01">{{ $item['quantity'] }} x {{ $item['prix_unitaire'] }}CFA</span>
+                                </li>
+                            @endforeach
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="dropdown-item text-end">
+                                <a href="/voirPanier" class="btn btn-custom">Voir Panier</a>
+                            </li>
+                        @else
+                            <li class="dropdown-item text-center">Votre panier est vide</li>
+                        @endif
+                    </ul>
                 </li>
               </ul>
           </div>
@@ -46,7 +73,6 @@
       </div>
     </div>
   </div>
-
   <div class="container">
     <div class="row categorie">
       <div class="col-md-6">
@@ -70,7 +96,7 @@
       </div>
     </div>
   </div>
-  <h2>Nos Produits</h2>
+ <h2>Nos Produits</h2>
   
   <div class="container produits row row-cols-1 row-cols-md-3 g-4" style="margin-left: auto; margin-right:auto;">
     @foreach ($produits as $produit)
@@ -100,12 +126,13 @@
                     @endif
                     </p>
                 </div>
-                <form action="/connexionClient" method="get">
-                  @csrf
-                  <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
-                      <i class="fas fa-cart-plus"></i>
-                  </button>
-              </form>
+                <form action="/ajoutPanier/{{ $produit->id }}" method="post">
+                    @csrf
+                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                    <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
+                        <i class="fas fa-cart-plus"></i>
+                    </button>
+                </form>                
             </div>
         </div>
     </div>
@@ -154,7 +181,7 @@
       </div>
     </div>
     @endforeach
-  </div>
+  </div> 
 
   <footer class="footer mt-auto py-3 ">
     <div class="container">

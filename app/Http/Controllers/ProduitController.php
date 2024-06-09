@@ -13,11 +13,7 @@ class ProduitController extends Controller
         $produits = Produit::with('categorie')->get();
         return view('personnels/espacePerso', compact('produits'));
     }
-
-    public function produitsAccueil()
-{
-    
-}
+   
     public function detailsProduit($id)
     {
         $produit = Produit::find($id);
@@ -32,7 +28,7 @@ class ProduitController extends Controller
     public function sauvegardeProduit(Request $request)
     {
         Produit::create($request->all());
-        return redirect('produits');
+        return redirect('/espacePerso');
     }
     public function modificationProduit($id)
     {
@@ -44,7 +40,7 @@ class ProduitController extends Controller
     {
         $produit = Produit::find($request->id);
         $produit->update($request->all());
-        return redirect('produits');
+        return redirect('/espacePerso');
     }
     public function supprimeProduit($id)
     {
@@ -67,7 +63,13 @@ class ProduitController extends Controller
         $categories = Categorie::all();
         return view('welcome', compact('produits', 'categories'));
     }
+    public function produitCategorie()
+    {
+        $produits = Produit::with('categorie')->take(9)->get();
+        $categories = Categorie::all();
+        return view('clients/profil', compact('produits', 'categories'));
+    }
     
 
-
+    
 }
