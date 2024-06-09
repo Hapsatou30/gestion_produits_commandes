@@ -57,6 +57,14 @@ class ProduitController extends Controller
         // Retourner la vue avec les données des produits de la catégorie
         return view('produits.produitCategorie', compact('produits', 'categorie'));
     }
+    public function produitsParCategories(Categorie $categorie)
+    {
+        // Récupérer les produits associés à cette catégorie en utilisant une requête directe
+        $produits = Produit::where('categorie_id', $categorie->id)->get();
+
+        // Retourner la vue avec les données des produits de la catégorie
+        return view('clients.produitCategorie', compact('produits', 'categorie'));
+    }
     public function listeAccueil()
     {
         $produits = Produit::with('categorie')->take(9)->get();
@@ -74,6 +82,12 @@ class ProduitController extends Controller
         $produits = Produit::with('categorie')->paginate(12);
         $categories = Categorie::all();
         return view('/boutique', compact('produits', 'categories'));
+    }
+    public function shop()
+    {
+        $produits = Produit::with('categorie')->paginate(12);
+        $categories = Categorie::all();
+        return view('clients/shop', compact('produits', 'categories'));
     }
 
     

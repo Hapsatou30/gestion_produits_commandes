@@ -118,7 +118,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button type="button" class="btn btn-custom">Ajouter dans votre panier</button>
           </div>
         </div>
       </div>
