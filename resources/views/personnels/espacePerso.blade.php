@@ -15,7 +15,7 @@
     <div class="sidebar">
         <div class="logo">
             <img src="{{asset('images/logo1.png')}}" alt="Logo">
-            {{-- <h2>Bonjour {{session('personnel')->prenom}} </h2> --}}
+             <h2>Bonjour {{session('personnel')->prenom}} </h2> 
         </div>
         <nav>
             <ul>

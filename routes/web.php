@@ -4,6 +4,7 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\ProduitController;
 use App\Models\Categorie;
+use App\Models\Personnel;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProduitController::class,'listeAccueil']);
@@ -28,5 +29,8 @@ Route::get('/modificationProduit/{id}', [ProduitController::class, 'modification
 Route::post('/modificationProduit', [ProduitController::class, 'sauvegardeModification']);
 Route::get('/detailsProduit/{id}', [ProduitController::class, 'detailsProduit']);
 
-// // Route::get('espacePerso', [PersonnelController::class, 'especePerso']);
-// Route::get('/espacePerso', function () { return view('personnels/espacePerso');});
+Route::get('inscription', [PersonnelController::class, 'ajoutPersonnel']);
+Route::post('/sauvegardePersonnel', [PersonnelController::class , 'sauvegardePersonnel']);
+Route::get('/connexion', [PersonnelController::class, 'connexion']);
+Route::post('/traitementConnexion', [PersonnelController::class, 'traitementConnexion']);
+Route::get('/deconnexion', [PersonnelController::class, 'deconnexion']); 
