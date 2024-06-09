@@ -16,8 +16,9 @@ body {
     font-family: 'Lora';
   }
   body {
-    background:linear-gradient(rgba(5, 31, 5, 0.6), rgba(24, 73, 24, 0.6)), url('https://img.freepik.com/photos-premium/nourriture-pour-tous-jours_181303-5931.jpg?w=740') no-repeat center center fixed;
+    background:linear-gradient(rgba(5, 31, 5, 0.6), rgba(5, 31, 5, 0.6)), url('https://img.freepik.com/vecteurs-premium/client-achetant-ligne-smartphone-mobile-grand-magasin-ligne-supermarche-nouveau-style-vie-normal-pour-faire-du-shopping_40876-1837.jpg') no-repeat center center fixed;
     background-size: cover;
+    height: 100px;
 }
 h1{
     color: white;
@@ -31,4 +32,19 @@ form
     color: white;
     font-size: var(--taille--texte);
 }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.contenu {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  
+}
+
+
 

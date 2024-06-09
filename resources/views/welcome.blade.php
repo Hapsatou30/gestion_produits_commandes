@@ -39,7 +39,7 @@
       <div class="banner-text">
         <h1>Bienvenue chez <br> Kane & Frères</h1>
         <p>Votre boutique en ligne pour des produits alimentaires de qualité</p>
-        <a href="#" class="btn btn-custom">Voir les produits</a>
+        <a href="/boutique" class="btn btn-custom">Voir les produits</a>
       </div>
       <div class="banner-image">
         <img src="{{ asset('images/banner-img.png') }}" alt="Produit">
