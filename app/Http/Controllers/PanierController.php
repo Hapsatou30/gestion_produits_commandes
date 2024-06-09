@@ -104,4 +104,19 @@ public function traiterCommande(Request $request)
 
     return redirect('/profil')->with('status', 'Votre commande a été validée avec succès.');
 }
+public function edit($id)
+{
+    $commande = Commande::findOrFail($id);
+    return view('commandes.modification', compact('commande'));
+}
+
+public function update(Request $request, $id)
+{
+    $commande = Commande::findOrFail($id);
+    $commande->etat_commande = $request->input('etat_commande');
+    $commande->montant_total = $request->input('montant_total');
+    $commande->save();
+
+    return redirect()->route('mesCommandes')->with('status', 'Commande mise à jour avec succès.');
+}
 }

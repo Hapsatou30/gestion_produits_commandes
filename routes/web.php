@@ -57,8 +57,8 @@ Route::get('/shop' , [ProduitController::class, 'shop']);
 Route::get('/categories/{categorie}', [ProduitController::class, 'produitsParCategories']);
 Route::get('/mesCommandes', [ClientController::class, 'mesCommandes'])->name('mesCommandes');
 Route::get('/commande/{id}', [ClientController::class, 'detailCommande'])->name('detailCommande');
-
-
+Route::get('/commande/{id}/edit', [PanierController::class, 'edit'])->name('commande.edit');
+Route::post('/commande/{id}/update', [PanierController::class, 'update'])->name('commande.update');
 
 
     });

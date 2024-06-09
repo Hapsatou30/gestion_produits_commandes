@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -20,7 +21,7 @@
           <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
               <ul class="navbar-nav mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link"  href="/profil">Accueil</a>
+                      <a class="nav-link " href="/profil">Accueil</a>
                   </li>
                   
                   <li class="nav-item">
@@ -61,45 +62,30 @@
       </div>
   </nav>
   </header>
-  
-
-  <div class="container mt-5">
-    <h2>Détails de la Commande: {{ $commande->reference }}</h2>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Désignation</th>
-                    <th>Prix Unitaire</th>
-                    <th>Quantité</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($commande->produits as $produit)
-                    <tr>
-                        <td><img src="{{ $produit->image }}" alt="{{ $produit->designation }}" style="width: 100px; height: 100px;"></td>
-                        <td>{{ $produit->designation }}</td>
-                        <td>{{ $produit->prix_unitaire }} CFA</td>
-                        <td>{{ $produit->pivot->quantite }}</td>
-                        <td>{{ $produit->prix_unitaire * $produit->pivot->quantite }} CFA</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    <div class="m-3">
-        <a href="{{ route('mesCommandes') }}" class="btn btn-custom">Retour à mes commandes</a>
-    </div>
+<div class="container mt-5">
+    <h2>Modifier la Commande</h2>
+    <form action="{{ route('commande.update', $commande->id) }}" method="post">
+        @csrf
+        <div class="mb-3">
+            <label for="reference" class="form-label">Référence</label>
+            <input type="text" class="form-control" id="reference" name="reference" value="{{ $commande->reference }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="etat_commande" class="form-label">État</label>
+            <select class="form-control" id="etat_commande" name="etat_commande">
+                <option value="en_cours" {{ $commande->etat_commande == 'en_cours' ? 'selected' : '' }}>En cours</option>
+                <option value="valide" {{ $commande->etat_commande == 'valide' ? 'selected' : '' }}>Validée</option>
+                <option value="annule" {{ $commande->etat_commande == 'annule' ? 'selected' : '' }}>Annulée</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="montant_total" class="form-label">Montant Total</label>
+            <input type="number" class="form-control" id="montant_total" name="montant_total" value="{{ $commande->montant_total }}"readonly>
+        </div>
+        <button type="submit" class="btn btn-custom">Enregistrer</button>
+    </form>
 </div>
 
-<footer class="footer mt-auto py-3 ">
-    <div class="container">
-      <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
-        <p >© {{ date('Y') }} Kane & frère. Tous droits réservés.</p>
-    </div>
-</footer>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var currentLocation = window.location.pathname;
@@ -112,6 +98,12 @@
         });
     });
   </script>
+<footer class="footer mt-auto py-3 ">
+    <div class="container">
+      <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
+        <p >© {{ date('Y') }} Kane & frère. Tous droits réservés.</p>
+    </div>
+</footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
