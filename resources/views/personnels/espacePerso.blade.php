@@ -100,8 +100,8 @@
                 </tr>
                 @endforeach
               </tbody>
-            </table>
-            
+            </table> <br><br>
+            {{$produits->links()}}
            </div>
     </div>
 </body>

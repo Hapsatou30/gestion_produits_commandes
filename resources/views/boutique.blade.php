@@ -13,37 +13,36 @@
   <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-lg-0" id="navbar">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Accueil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/boutique">Boutique</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/connexionClient">Connexion</a>
-            </li>
-        </ul>
-        </div>
+          <a class="navbar-brand" href="#"><img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0" id="navbar">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/boutique">Boutique</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/connexionClient">Connexion</a>
+                </li>
+            </ul>
+          </div>
       </div>
-    </nav>
+  </nav>
   </header>
   <div class="banner" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(rgba(5, 31, 5, 0.6), rgba(24, 73, 24, 0.6)),url('{{ asset('images/banner_categorie.jpg') }}'); background-size: cover; background-position: center; height:80vh">
     <div class="banner-content">
       <div class="banner-text">
-        <h1>Les Produits de la Catégorie <span style="color: #ffb624; font-weight:bold">{{$categorie->libelle}}</span></</h1>
+        <h1> <span style="color: #ffb624; font-weight:bold">Boutique</span></</h1>
       </div>
     </div>
   </div>
+
+  <h2>Nos Produits</h2>
   
-  <div class="container mt-4">
-    <button type="button" class="btn btn-custom" onclick="window.history.back();">Retour à l'accueil</button>
-  </div>
   <div class="container produits row row-cols-1 row-cols-md-3 g-4" style="margin-left: auto; margin-right:auto;">
     @foreach ($produits as $produit)
     <div class="col">
@@ -61,13 +60,15 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $produit->designation }}</h5>
                 <div class="infos">
-                    <p class="card-text">Prix: {{ $produit->prix_unitaire }}€</p>
+                    <p class="card-text">Prix: {{ $produit->prix_unitaire }}Cfa</p>
                     <p class="card-text">
-                        @if($produit->etat == 'disponible')
-                            <span class="badge bg-success">{{ $produit->etat }}</span>
-                        @else
-                            <span class="badge bg-danger">{{ $produit->etat }}</span>
-                        @endif
+                      @if($produit->etat == 'disponible')
+                      <span class="badge " style="background: #007F01">Disponible</span>
+                    @elseif($produit->etat == 'en_rupture')
+                      <span class="badge bg-danger">En rupture</span>
+                    @else
+                      <span class="badge bg-warning">En stock</span>
+                    @endif
                     </p>
                 </div>
                 <form action="/connexionClient" method="get">
@@ -118,7 +119,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button type="button" class="btn btn-custom">Ajouter dans votre panier</button>
           </div>
         </div>
       </div>
@@ -126,13 +126,27 @@
     @endforeach
   </div>
 
-  <footer class="footer mt-auto py-3 ">
+
+  <br><br>
+  {{$produits->links()}}
+<footer class="footer  ">
     <div class="container">
       <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
         <p >© {{ date('Y') }} Kane & frère. Tous droits réservés.</p>
     </div>
 </footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentUrl = window.location.pathname;
+        var navbarLinks = document.querySelectorAll("#navbar a");
+  
+        navbarLinks.forEach(function(link) {
+            if (link.getAttribute("href") === currentUrl) {
+                link.classList.add("active");
+            }
+        });
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
-

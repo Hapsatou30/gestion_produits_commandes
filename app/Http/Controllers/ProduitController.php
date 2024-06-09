@@ -10,7 +10,7 @@ class ProduitController extends Controller
 {
     public function listeProduits()
     {
-        $produits = Produit::with('categorie')->get();
+        $produits = Produit::with('categorie')->paginate(5);
         return view('personnels/espacePerso', compact('produits'));
     }
    
@@ -69,7 +69,12 @@ class ProduitController extends Controller
         $categories = Categorie::all();
         return view('clients/profil', compact('produits', 'categories'));
     }
-    
+    public function boutique()
+    {
+        $produits = Produit::with('categorie')->paginate(12);
+        $categories = Categorie::all();
+        return view('/boutique', compact('produits', 'categories'));
+    }
 
     
 }

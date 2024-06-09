@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProduitController::class,'listeAccueil']);
 Route::get('/categorie/{categorie}', [ProduitController::class, 'produitsParCategorie'])->name('produits.par.categorie');
+Route::get('/boutique' , [ProduitController::class, 'boutique']);
 
 
 Route::get('inscription', [PersonnelController::class, 'ajoutPersonnel']);
