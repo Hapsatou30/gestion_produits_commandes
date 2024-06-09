@@ -58,3 +58,4 @@ Route::post('/sauvegardeCommande', [CommandeController::class, 'sauveardeCommand
 
 Route::get('/panier', [PanierController::class, 'afficherPanier']);
 Route::post('/ajoutPanier/{produits}', [PanierController::class, 'ajoutPanier']);
+Route::get('/supprimerDuPanier/{produit}', [PanierController::class, 'supprimerDuPanier']);

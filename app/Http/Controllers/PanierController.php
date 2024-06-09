@@ -30,5 +30,17 @@ public function ajoutPanier(Request $request, $produitId)
     // Rediriger vers la page du panier
     return redirect('/')->with('success', 'Produit ajouté au panier.');
 }
+public function supprimerDuPanier($produitId)
+{
+    // Supprimer le produit du panier
+    $panier = session()->pull('panier', []);
+    $panier = array_diff($panier, [$produitId]);
+    
+    // Mettre à jour la session avec le nouveau panier
+    session(['panier' => $panier]);
+
+    // Rediriger vers la page du panier
+    return redirect('/panier')->with('success', 'Produit supprimé du panier.');
+}
 
 }
