@@ -63,6 +63,28 @@
     </div>
     <div  class="main-content">
         <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card text-white mb-3" style="background: #ffb624">
+                        <div class="card-header" style="text-align: center">Produits</div>
+                        <div class="card-body" style="background: white; color:#007F01;">
+                            <h5 class="card-title">Nombre total de produits enregistrés</h5>
+                            <p class="card-text">{{ $totalProduits }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card text-white  mb-3" style="background: #ffb624">
+                        <div class="card-header" style="text-align: center">Commandes</div>
+                        <div class="card-body"style="background: white; color:#007F01;">
+                            <h5 class="card-title">Nombre total de commandes enregistrées</h5>
+                            <p class="card-text">{{ $totalCommandes }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="container">
             <a href="/ajoutProduit" class="btn btn-custom">Ajouter</a>
             <table class="table">
               <thead>
@@ -100,8 +122,8 @@
                 </tr>
                 @endforeach
               </tbody>
-            </table>
-            
+            </table> <br><br>
+            {{$produits->links()}}
            </div>
     </div>
 </body>

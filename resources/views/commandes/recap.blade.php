@@ -89,10 +89,10 @@
                 </tbody>
             </table>
         </div>
-        <div class="text-end">
+        <div class="text-end m-3">
             <form action="/traiterCommande" method="post">
                 @csrf
-                <button type="submit" class="btn btn-primary">Valider la commande</button>
+                <button type="submit" class="btn btn-custom">Valider la commande</button>
             </form>
         </div>
     @else

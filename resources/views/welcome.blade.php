@@ -18,18 +18,18 @@
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-              <ul class="navbar-nav mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-                  </li>
-                  
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Boutique</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/connexionClient">Connexion</a>
-                </li>
-              </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0" id="navbar">
+              <li class="nav-item">
+                  <a class="nav-link" href="/">Accueil</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/boutique">Boutique</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/connexionClient">Connexion</a>
+              </li>
+          </ul>
+          
           </div>
       </div>
   </nav>
@@ -39,7 +39,7 @@
       <div class="banner-text">
         <h1>Bienvenue chez <br> Kane & Frères</h1>
         <p>Votre boutique en ligne pour des produits alimentaires de qualité</p>
-        <a href="#" class="btn btn-custom">Voir les produits</a>
+        <a href="/boutique" class="btn btn-custom">Voir les produits</a>
       </div>
       <div class="banner-image">
         <img src="{{ asset('images/banner-img.png') }}" alt="Produit">
@@ -148,7 +148,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button type="button" class="btn btn-custom">Ajouter dans votre panier</button>
           </div>
         </div>
       </div>
@@ -156,12 +155,25 @@
     @endforeach
   </div>
 
-  <footer class="footer mt-auto py-3 ">
+  <footer class="footer  ">
     <div class="container">
       <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
         <p >© {{ date('Y') }} Kane & frère. Tous droits réservés.</p>
     </div>
 </footer>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var currentUrl = window.location.pathname;
+      var navbarLinks = document.querySelectorAll("#navbar a");
+
+      navbarLinks.forEach(function(link) {
+          if (link.getAttribute("href") === currentUrl) {
+              link.classList.add("active");
+          }
+      });
+  });
+</script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

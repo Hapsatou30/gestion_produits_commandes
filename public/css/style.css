@@ -28,7 +28,7 @@ body {
     width: 90px;
 } */
 .logo-img {
-  width: 90px; /* ajustez la taille en fonction de vos besoins */
+  width: 80px; /* ajustez la taille en fonction de vos besoins */
   height: auto; /* cela maintiendra le ratio de l'image */
 }
 
@@ -191,6 +191,7 @@ header {
 
 footer{
   background: var(--couleur--principal);
+
   
 }
 footer .container{
@@ -198,8 +199,10 @@ footer .container{
   align-items: center;
   justify-content: space-between;
   color: wheat;
+  padding-top: 5px;
 
 }
 footer .logo-img{
-  width: 150px;
+  width: 90px;
+
 }

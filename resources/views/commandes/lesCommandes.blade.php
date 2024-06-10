@@ -63,14 +63,14 @@
     </div>
     <div  class="main-content">
 <div class="container mt-5">
-    <h2>Liste de Toutes les Commandes</h2>
+    <h2 style="margin: 30px; text-align:center;">Liste de Toutes les Commandes</h2>
     @if($commandes->count() > 0)
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Référence</th>
                         <th>Client</th>
+                        <th>Email_lient</th>
                         <th>État</th>
                         <th>Montant Total</th>
                         <th>Date</th>
@@ -80,12 +80,12 @@
                 <tbody>
                     @foreach($commandes as $commande)
                         <tr>
-                            <td>{{ $commande->reference }}</td>
-                            <td>{{ $commande->client->name }}</td> <!-- Assurez-vous que la relation client est définie dans le modèle Commande -->
+                            <td>{{ $commande->client->prenom }} {{ $commande->client->nom }}</td> 
+                            <td>{{ $commande->client->email}}</td>
                             <td>{{ $commande->etat_commande }}</td>
                             <td>{{ $commande->montant_total }} CFA</td>
                             <td>{{ $commande->created_at->format('d/m/Y') }}</td>
-                            <td><a href="/commandePersonnel/{{ $commande->id }}" class="btn btn-info">Voir Détails</a></td>
+                            <td><a href="/commandePersonnel/{{ $commande->id }}" class="btn btn-custom">Voir Détails</a></td>
                         </tr>
                     @endforeach
                 </tbody>

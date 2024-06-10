@@ -13,98 +13,35 @@
   <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-          <a class="navbar-brand" href="#"><img src="{{ asset('images/logo1.png') }}" alt="logo" class="logo-img"></a>
+          <a class="navbar-brand" href="#"><img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-              <ul class="navbar-nav mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link" href="/profil">Accueil</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/shop">Boutique</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/mesCommandes">Commande</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/deconnexionClient">Deconnexion</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="fas fa-shopping-cart"></i>
-                          <span class="badge bg-danger">{{ count(session('panier', [])) }}</span>
-                      </a>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                          @if(session('panier') && count(session('panier')) > 0)
-                              @foreach(session('panier') as $item)
-                                  <li class="dropdown-item d-flex justify-content-between align-items-center">
-                                      <div>
-                                          <img src="{{ $item['image'] }}" alt="{{ $item['designation'] }}" style="width: 50px; height: 50px;">
-                                          <span style=" color: #007F01">{{ $item['designation'] }}</span>
-                                      </div>
-                                      <span style=" color: #007F01">{{ $item['quantity'] }} x {{ $item['prix_unitaire'] }}CFA</span>
-                                  </li>
-                              @endforeach
-                              <li><hr class="dropdown-divider"></li>
-                              <li class="dropdown-item text-end">
-                                  <a href="/voirPanier" class="btn btn-custom">Voir Panier</a>
-                              </li>
-                          @else
-                              <li class="dropdown-item text-center">Votre panier est vide</li>
-                          @endif
-                      </ul>
-                  </li>
-              </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0" id="navbar">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/boutique">Boutique</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/connexionClient">Connexion</a>
+                </li>
+            </ul>
           </div>
       </div>
-      <h6 style="color: white">Bonjour {{session('personnel')->prenom}} </h6>
   </nav>
   </header>
-  <div class="banner" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(rgba(5, 31, 5, 0.6), rgba(24, 73, 24, 0.6)),url('{{ asset('images/boutique.jpg') }}'); background-size: cover; background-position: center; height:80vh">
+  <div class="banner" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(rgba(5, 31, 5, 0.6), rgba(24, 73, 24, 0.6)),url('{{ asset('images/banner_categorie.jpg') }}'); background-size: cover; background-position: center; height:80vh">
     <div class="banner-content">
       <div class="banner-text">
-        <h1>Bienvenue chez <br> Kane & Frères</h1>
-        <p>Votre boutique en ligne pour des produits alimentaires de qualité</p>
-        <a href="/shop" class="btn btn-custom">Voir les produits</a>
-      </div>
-      <div class="banner-image">
-        <img src="{{ asset('images/banner-img.png') }}" alt="Produit">
+        <h1> <span style="color: #ffb624; font-weight:bold">Boutique</span></</h1>
       </div>
     </div>
   </div>
-  <main>
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-</main>
-  <div class="container">
-    <div class="row categorie">
-      <div class="col-md-6">
-        <div class="image">
-          <img src="{{asset('images/categorie.jpg')}}" alt="">
-        </div>
-      </div>
-      <div class="col-md-5" >
-         <div class="category-list">
-          <h2>Catégories</h2>
-          <div id="categoryButtons" class="row" >
-            @foreach ($categories as $categorie)
-                <div class="col-md-6">
-                    <a href="/categories/{{$categorie->id}}" class="btn btn-custom">
-                        {{ $categorie->libelle }}
-                    </a>
-                </div>
-            @endforeach
-        </div>                                        
-        </div> 
-      </div>
-    </div>
-  </div>
- <h2>Nos Produits</h2>
+
+  <h2>Nos Produits</h2>
   
   <div class="container produits row row-cols-1 row-cols-md-3 g-4" style="margin-left: auto; margin-right:auto;">
     @foreach ($produits as $produit)
@@ -134,13 +71,12 @@
                     @endif
                     </p>
                 </div>
-                <form action="/ajoutPanier/{{ $produit->id }}" method="post">
-                    @csrf
-                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                    <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
-                        <i class="fas fa-cart-plus"></i>
-                    </button>
-                </form>                
+                <form action="/connexionClient" method="get">
+                  @csrf
+                  <button type="submit" class="btn btn-sm" data-bs-toggle="tooltip" title="Ajouter au panier" style="color: #ffb624; font-size:30px">
+                      <i class="fas fa-cart-plus"></i>
+                  </button>
+              </form>
             </div>
         </div>
     </div>
@@ -188,26 +124,29 @@
       </div>
     </div>
     @endforeach
-  </div> 
+  </div>
 
-  <footer class="footer mt-auto py-3 ">
+
+  <br><br>
+  {{$produits->links()}}
+<footer class="footer  ">
     <div class="container">
       <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">
         <p >© {{ date('Y') }} Kane & frère. Tous droits réservés.</p>
     </div>
 </footer>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      var currentLocation = window.location.pathname;
-      var navLinks = document.querySelectorAll('.nav-link');
-
-      navLinks.forEach(function(link) {
-          if (link.getAttribute('href') === currentLocation) {
-              link.classList.add('active');
-          }
-      });
-  });
-</script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentUrl = window.location.pathname;
+        var navbarLinks = document.querySelectorAll("#navbar a");
+  
+        navbarLinks.forEach(function(link) {
+            if (link.getAttribute("href") === currentUrl) {
+                link.classList.add("active");
+            }
+        });
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

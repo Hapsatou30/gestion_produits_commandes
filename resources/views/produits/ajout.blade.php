@@ -12,15 +12,15 @@
             @csrf
             <div class="form-group">
                 <label for="reference">Référence</label>
-                <input type="text" class="form-control" id="reference" name="reference" required>
+                <input type="text" class="form-control" id="reference" name="reference" >
             </div>
             <div class="form-group">
                 <label for="designation">Désignation</label>
-                <input type="text" class="form-control" id="designation" name="designation" required>
+                <input type="text" class="form-control" id="designation" name="designation">
             </div>
             <div class="form-group">
                 <label for="prix_unitaire">Prix Unitaire</label>
-                <input type="number" step="0.01" class="form-control" id="prix_unitaire" name="prix_unitaire" required>
+                <input type="number" step="0.01" class="form-control" id="prix_unitaire" name="prix_unitaire" >
             </div>
             <div class="form-group">
                 <label for="image">Image</label>
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="etat">État</label>
-                <select class="form-control" id="etat" name="etat" required>
+                <select class="form-control" id="etat" name="etat" >
                     <option value="disponible">Disponible</option>
                     <option value="en_rupture">En rupture</option>
                     <option value="en_stock">En stock</option>
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label for="categorie_id">Catégorie</label>
-                <select class="form-control" id="categorie_id" name="categorie_id" required>
+                <select class="form-control" id="categorie_id" name="categorie_id" >
                     @foreach($categories as $categorie)
                         <option value="{{ $categorie->id }}">{{ $categorie->libelle }}</option>
                     @endforeach

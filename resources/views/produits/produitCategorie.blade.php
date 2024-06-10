@@ -18,19 +18,17 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-lg-0">
+          <ul class="navbar-nav mb-2 mb-lg-0" id="navbar">
             <li class="nav-item">
-              <a class="nav-link "  href="/">Accueil</a>
+                <a class="nav-link" href="/">Accueil</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">A propos</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link active"aria-current="page" href="#"> Boutique</a>
+                <a class="nav-link" href="/boutique">Boutique</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a></li>
-          </ul>
+                <a class="nav-link" href="/connexionClient">Connexion</a>
+            </li>
+        </ul>
         </div>
       </div>
     </nav>
@@ -120,7 +118,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button type="button" class="btn btn-custom">Ajouter dans votre panier</button>
           </div>
         </div>
       </div>

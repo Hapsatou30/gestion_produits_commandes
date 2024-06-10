@@ -16,13 +16,13 @@ class PanierController extends Controller
     {
         $produitId = $request->input('produit_id');
         $produit = Produit::find($produitId);
-
+    
         if (!$produit) {
             return back()->with('status', 'Produit non trouvé.');
         }
-
+    
         $panier = session()->get('panier', []);
-
+    
         if (isset($panier[$produitId])) {
             $panier[$produitId]['quantity']++;
         } else {
@@ -34,11 +34,12 @@ class PanierController extends Controller
                 'image' => $produit->image,
             ];
         }
-
+    
         session()->put('panier', $panier);
-
+    
         return back()->with('status', 'Produit ajouté au panier.');
     }
+    
     public function voirPanier()
 {
     $panier = session()->get('panier', []);
@@ -102,5 +103,20 @@ public function traiterCommande(Request $request)
     session()->forget('panier');
 
     return redirect('/profil')->with('status', 'Votre commande a été validée avec succès.');
+}
+public function edit($id)
+{
+    $commande = Commande::findOrFail($id);
+    return view('commandes.modification', compact('commande'));
+}
+
+public function update(Request $request, $id)
+{
+    $commande = Commande::findOrFail($id);
+    $commande->etat_commande = $request->input('etat_commande');
+    $commande->montant_total = $request->input('montant_total');
+    $commande->save();
+
+    return redirect()->route('mesCommandes');
 }
 }

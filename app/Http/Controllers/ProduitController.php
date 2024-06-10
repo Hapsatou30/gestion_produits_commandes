@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Produit;
 use App\Models\Categorie;
+use App\Models\Commande;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
 {
     public function listeProduits()
     {
-        $produits = Produit::with('categorie')->get();
-        return view('personnels/espacePerso', compact('produits'));
+        $produits = Produit::with('categorie')->paginate(5);
+        $totalProduits = Produit::count();
+        $totalCommandes = Commande::count();
+        return view('personnels/espacePerso', compact('produits','totalProduits', 'totalCommandes'));
     }
    
     public function detailsProduit($id)
@@ -57,6 +60,14 @@ class ProduitController extends Controller
         // Retourner la vue avec les données des produits de la catégorie
         return view('produits.produitCategorie', compact('produits', 'categorie'));
     }
+    public function produitsParCategories(Categorie $categorie)
+    {
+        // Récupérer les produits associés à cette catégorie en utilisant une requête directe
+        $produits = Produit::where('categorie_id', $categorie->id)->get();
+
+        // Retourner la vue avec les données des produits de la catégorie
+        return view('clients.produitCategorie', compact('produits', 'categorie'));
+    }
     public function listeAccueil()
     {
         $produits = Produit::with('categorie')->take(9)->get();
@@ -69,7 +80,18 @@ class ProduitController extends Controller
         $categories = Categorie::all();
         return view('clients/profil', compact('produits', 'categories'));
     }
-    
+    public function boutique()
+    {
+        $produits = Produit::with('categorie')->paginate(12);
+        $categories = Categorie::all();
+        return view('/boutique', compact('produits', 'categories'));
+    }
+    public function shop()
+    {
+        $produits = Produit::with('categorie')->paginate(12);
+        $categories = Categorie::all();
+        return view('clients/shop', compact('produits', 'categories'));
+    }
 
     
 }

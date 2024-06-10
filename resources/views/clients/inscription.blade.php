@@ -11,15 +11,14 @@
 </head>
 <style>
     .form-control{
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
 }
     .btn-custom {
     background-color: var(--couleur--secondaire);
     color: white;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px 20px;
-    margin: 20px;
     text-transform: uppercase;
     font-weight: bold;
     font-size: var(--taille--texte);
@@ -33,8 +32,7 @@
 <body>
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+    <div class="contenu">
             <h1>Inscription</h1>
             <form method="POST" action="/sauvegardeClient">
                 @csrf
@@ -54,14 +52,14 @@
                     <label for="mot_de_passe">Mot de passe</label>
                     <input type="password" class="form-control" id="mot_de_passe" name="mot_de_passe">
                 </div>
-                <button type="submit" class="btn btn-custom">S'inscrire</button>
+                <button type="submit" class="btn btn-custom btn-block">S'inscrire</button>
                 <div style="font-weight: bold">
                     <p style="float: left; color:white;">Déjà un compte?</p>
-                    <a href="/connexionClient" style="float: right; color:white;"> Se connecter</a>
+                    <p> <a href="/connexionClient" style="float: right; color:white;"> Se connecter</a></p>
                 </div>
             </form>
         </div>
-    </div>
+    
 </div>
 </body>
 

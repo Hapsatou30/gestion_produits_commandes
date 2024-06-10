@@ -21,11 +21,11 @@
           <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
               <ul class="navbar-nav mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                      <a class="nav-link " href="/profil">Accueil</a>
                   </li>
                   
                   <li class="nav-item">
-                      <a class="nav-link" href="#">Boutique</a>
+                      <a class="nav-link" href="/shop">Boutique</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/mesCommandes">Commande</a>
@@ -62,7 +62,7 @@
       </div>
   </nav>
   </header>
-<div class="container mt-5">
+  <div class="container mt-5">
     <h2>Mes Commandes</h2>
     @if($commandes->count() > 0)
         <div class="table-responsive">
@@ -74,6 +74,7 @@
                         <th>Montant Total</th>
                         <th>Date</th>
                         <th>Détails</th>
+                        <th>Modifier</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,7 +84,8 @@
                             <td>{{ $commande->etat_commande }}</td>
                             <td>{{ $commande->montant_total }} CFA</td>
                             <td>{{ $commande->created_at->format('d/m/Y') }}</td>
-                            <td><a href="/commande/{{ $commande->id}}" class="btn btn-info">Voir Détails</a></td>
+                            <td><a href="/commande/{{ $commande->id}}" class="btn btn-custom">Voir Détails</a></td>
+                            <td><a href="{{ route('commande.edit', $commande->id) }}" class="btn btn-custom">Modifier</a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -93,6 +95,19 @@
         <p>Vous n'avez pas encore passé de commandes.</p>
     @endif
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var currentLocation = window.location.pathname;
+        var navLinks = document.querySelectorAll('.nav-link');
+  
+        navLinks.forEach(function(link) {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            }
+        });
+    });
+  </script>
 <footer class="footer mt-auto py-3 ">
     <div class="container">
       <img src="{{asset('images/logo1.png')}}" alt="logo" class="logo-img">

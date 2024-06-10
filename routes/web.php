@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProduitController::class,'listeAccueil']);
 Route::get('/categorie/{categorie}', [ProduitController::class, 'produitsParCategorie'])->name('produits.par.categorie');
+Route::get('/boutique' , [ProduitController::class, 'boutique']);
 
 
 Route::get('inscription', [PersonnelController::class, 'ajoutPersonnel']);
@@ -44,6 +45,7 @@ Route::post('/sauvegardeClient', [ClientController::class , 'sauvegardeClient'])
 Route::get('/connexionClient', [ClientController::class, 'connexion']);
 Route::post('/traitementConnexionClient', [ClientController::class, 'traitementConnexion']);
 Route::get('/deconnexionClient', [ClientController::class, 'deconnexion']);
+
 Route::middleware(['EnsureUserIsClient'])->group(function () {
 Route::get('/profil', [ProduitController::class,'produitCategorie']);
 Route::post('/ajoutPanier/{produits}', [PanierController::class, 'ajoutPanier']);
@@ -51,11 +53,12 @@ Route::get('/voirPanier', [PanierController::class, 'voirPanier']);
 Route::post('/supprimerDuPanier', [PanierController::class, 'supprimerDuPanier']);
 Route::get('/validerCommande', [PanierController::class, 'validerCommande']);
 Route::post('/traiterCommande', [PanierController::class, 'traiterCommande']);
-
+Route::get('/shop' , [ProduitController::class, 'shop']);
+Route::get('/categories/{categorie}', [ProduitController::class, 'produitsParCategories']);
 Route::get('/mesCommandes', [ClientController::class, 'mesCommandes'])->name('mesCommandes');
 Route::get('/commande/{id}', [ClientController::class, 'detailCommande'])->name('detailCommande');
-
-
+Route::get('/commande/{id}/edit', [PanierController::class, 'edit'])->name('commande.edit');
+Route::post('/commande/{id}/update', [PanierController::class, 'update'])->name('commande.update');
 
 
     });

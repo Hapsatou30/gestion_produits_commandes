@@ -80,16 +80,16 @@
                     <tr>
                         <td><img src="{{ $produit->image }}" alt="{{ $produit->designation }}" style="width: 100px; height: 100px;"></td>
                         <td>{{ $produit->designation }}</td>
-                        <td>{{ $produit->pivot->prix_unitaire }} CFA</td>
+                        <td>{{ $produit->prix_unitaire }} CFA</td>
                         <td>{{ $produit->pivot->quantite }}</td>
-                        <td>{{ $produit->pivot->prix_unitaire * $produit->pivot->quantite }} CFA</td>
+                        <td>{{ $produit->prix_unitaire * $produit->pivot->quantite }} CFA</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
     <div class="mt-3">
-        <a href="/touteLesCommandes" class="btn btn-primary">Retour à toutes les commandes</a>
+        <a href="/touteLesCommandes" class="btn btn-custom">Retour à toutes les commandes</a>
     </div>
 </div>
 </div>
