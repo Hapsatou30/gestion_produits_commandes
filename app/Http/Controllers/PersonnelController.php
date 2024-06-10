@@ -22,6 +22,20 @@ class PersonnelController extends Controller
        
     public function sauvegardePersonnel(Request $request)
     {
+        $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'email' => 'required|email|unique:clients,email',
+            'mot_de_passe' => 'required|min:8',
+        ], [
+            'nom.required' => 'Veuillez entrer votre nom.',
+            'prenom.required' => 'Veuillez entrer votre prénom.',
+            'email.required' => 'Veuillez entrer votre adresse email.',
+            'email.email' => 'Veuillez entrer une adresse email valide.',
+            'email.unique' => 'Cette adresse email est déjà utilisée.',
+            'mot_de_passe.required' => 'Veuillez entrer votre mot de passe.',
+            'mot_de_passe.min' => 'Le mot de passe doit comporter au moins 8 caractères.',
+        ]);
          // Récupérer toutes les données de la requête
          $data = $request->all();
          // Hacher le mot de passe avant de le sauvegarder
@@ -42,6 +56,15 @@ class PersonnelController extends Controller
     }
     public function traitementConnexion(Request $request)
     {
+        // Valider les données de la requête
+        $request->validate([
+            'email' => 'required|email',
+            'mot_de_passe' => 'required',
+        ], [
+            'email.required' => 'Veuillez entrer votre adresse email.',
+            'email.email' => 'Veuillez entrer une adresse email valide.',
+            'mot_de_passe.required' => 'Veuillez entrer votre mot de passe.',
+        ]);
          // Récupérer le personnel par son adresse email
          $personnel = Personnel::where('email', $request->input('email'))->first();
          if ($personnel) {

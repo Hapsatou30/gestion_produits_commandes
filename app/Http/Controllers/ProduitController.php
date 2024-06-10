@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produit;
 use App\Models\Categorie;
 use App\Models\Commande;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -14,7 +15,9 @@ class ProduitController extends Controller
         $produits = Produit::with('categorie')->paginate(5);
         $totalProduits = Produit::count();
         $totalCommandes = Commande::count();
-        return view('personnels/espacePerso', compact('produits','totalProduits', 'totalCommandes'));
+        $totalCategories = Categorie::count();
+        $totalClients = Client::count();
+        return view('personnels/espacePerso', compact('produits','totalProduits', 'totalCommandes' , 'totalCategories', 'totalClients'));
     }
    
     public function detailsProduit($id)
@@ -30,6 +33,14 @@ class ProduitController extends Controller
     }
     public function sauvegardeProduit(Request $request)
     {
+        $request->validate([
+            'reference' => 'required',
+            'designation' => 'required',
+            'prix_unitaire' => 'required|numeric|min:0',
+            'image' => 'required|url',
+            'etat' => 'required|in:disponible,en_rupture,en_stock',
+            'categorie_id' => 'required|exists:categories,id',
+        ]);
         Produit::create($request->all());
         return redirect('/espacePerso');
     }
