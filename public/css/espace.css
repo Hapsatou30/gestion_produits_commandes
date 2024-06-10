@@ -99,9 +99,9 @@ nav ul li a {
 .btn-custom {
     background-color: var(--couleur--secondaire);
     color: white;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px 20px;
-    margin: 20px;
+  
     float: right;
     text-transform: uppercase;
     font-weight: bold;

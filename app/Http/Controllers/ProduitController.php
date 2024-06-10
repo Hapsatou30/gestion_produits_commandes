@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produit;
 use App\Models\Categorie;
+use App\Models\Commande;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -11,7 +12,9 @@ class ProduitController extends Controller
     public function listeProduits()
     {
         $produits = Produit::with('categorie')->paginate(5);
-        return view('personnels/espacePerso', compact('produits'));
+        $totalProduits = Produit::count();
+        $totalCommandes = Commande::count();
+        return view('personnels/espacePerso', compact('produits','totalProduits', 'totalCommandes'));
     }
    
     public function detailsProduit($id)

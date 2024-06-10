@@ -19,7 +19,6 @@
     color: white;
     border-radius: 20px;
     padding: 10px 20px;
-    margin: 20px;
     text-transform: uppercase;
     font-weight: bold;
     font-size: var(--taille--texte);
@@ -31,27 +30,24 @@
   }
 </style>
 <body>
-
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h1>Connexion</h1>
-            <form method="POST" action="/traitementConnexion">
-                @csrf
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" >
-                </div>
-                <div class="form-group">
-                    <label for="mot_de_passe">Mot de passe</label>
-                    <input type="password" class="form-control" id="mot_de_passe" name="mot_de_passe">
-                </div>
-                <button type="submit" class="btn btn-custom">Connexion</button>
-            </form>
-            <div style="font-weight: bold">
-                <p style="float: left; color:white;">Vous êtes nouveau?</p>
-                <a href="/inscription" style="float: right; color:white;"> S'inscrire</a>
+    <div class="contenu">
+        <h1 class="text-center">Connexion</h1>
+        <form method="POST" action="/traitementConnexion">
+            @csrf
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" >
             </div>
+            <div class="form-group">
+                <label for="mot_de_passe">Mot de passe</label>
+                <input type="password" class="form-control" id="mot_de_passe" name="mot_de_passe">
+            </div>
+            <button type="submit" class="btn btn-custom btn-block">Connexion</button>
+        </form>
+        <div  style="font-weight: bold; display:flex;align-items:center;justify-content:space-around; margin-top:10px;">
+            <p style="color:white;">Vous êtes nouveau?</p>
+            <p><a href="/inscription" style="color:white;"> S'inscrire</a></p>
         </div>
     </div>
 </div>
